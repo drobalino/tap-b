@@ -16,13 +16,13 @@ tripFile = []
 
 if batches > 1:
     while len(tripFile) < batches:
-        file = input('Provide trip file: ') + '.tntp'
+        file = input('Provide trip file: ') + '.txt'
         tripFile.append(file)
 else:
-    file = input('Provide trip file: ') + '.tntp'
+    file = input('Provide trip file: ') + '.txt'
     tripFile.append(file)
 
-netFile = input('Provide network file: ') + '.tntp'
+netFile = input('Provide network file: ') + '.txt'
 
 
 def tapb_write(cgap, maxiter, maxrtime, batches, tripFile, netFile):
