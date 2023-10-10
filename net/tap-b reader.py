@@ -10,6 +10,8 @@ class Networks:
 
 def tapb_write(cgap, maxiter, maxrtime, batches, tripFile, netFile):
     '''write tui file to be read by tap-b'''
+    path = './bin/tap net'
+    name = 'params'
     with open('params_txt', 'w') as f:
         f.write('<NETWORK FILE> ')
         f.write(netFile)
