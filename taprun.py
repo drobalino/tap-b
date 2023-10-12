@@ -30,7 +30,7 @@ netFile = input('Provide network file: ')
 
 def tapb_write(cgap, maxiter, maxrtime, batches, tripFile, netFile):
     '''write tui file to be read by tap-b'''
-    path = './bin/tap net'
+    path = './net'
     name = 'params.txt'
     full = os.path.join(path, name)
     with open(full, 'w') as f:

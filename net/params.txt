@@ -1,0 +1,8 @@
+<NETWORK FILE> Anaheim2_net.tntp
+<TRIPS FILE> Anaheim2_trips1.tntp
+<TRIPS FILE> Anaheim2_trips2.tntp
+
+<NUMBER OF BATCHES> 2
+<CONVERGENCE GAP> 1e-6
+~<MAX ITERATIONS> 100
+~<MAX RUN TIME> 60
