@@ -1,9 +1,10 @@
-
+from itertools import zip_longest
 import time
 import shlex
 import subprocess
 import shutil
 import os
+import linecache
 from subprocess import call
 
 
@@ -14,30 +15,30 @@ class Networks:
 cgap = '1e-13'
 maxiter = '100'
 maxrtime = '60'
-batches = '1'
-trips = 'Braess_trips.txt'
+batches = '2'
+trips = ['Braess_trips.txt','Braess_trips1.txt']
 netFile = 'Braess_net.txt'
 termcrit = 1
 
-print('Braess network is default, is this ok?', '\n', 'y or n')
-newFile = input()
-if newFile == 'n':
-    cgap = input('Provide convergence gap: ')
-    maxiter = input('Provide maximum number of iterations: ')
-    maxrtime = input('Provide maximum run time: ')
-    batches = input('Provide number of batches: ')
-    print('Select termination criteria:','\n', '1 = Convergence Gap','\n', '2 = Maximum Number of Iterations','\n', '3 = Maximum Runtime')
-    trips = []
-    termcrit = int(input())
-    if int(batches) > 1:
-        while len(trips) < int(batches):
-            file = input('Provide trip file: ')
-            trips.append(file)
-    else:
-        file = input('Provide trip file: ')
-        trips.append(file)
+# print('Braess network is default, is this ok?', '\n', 'y or n')
+# newFile = input()
+# if newFile == 'n':
+#     cgap = input('Provide convergence gap: ')
+#     maxiter = input('Provide maximum number of iterations: ')
+#     maxrtime = input('Provide maximum run time: ')
+#     batches = input('Provide number of batches: ')
+#     print('Select termination criteria:','\n', '1 = Convergence Gap','\n', '2 = Maximum Number of Iterations','\n', '3 = Maximum Runtime')
+#     trips = []
+#     termcrit = int(input())
+#     if int(batches) > 1:
+#         while len(trips) < int(batches):
+#             file = input('Provide trip file: ')
+#             trips.append(file)
+#     else:
+#         file = input('Provide trip file: ')
+#         trips.append(file)
 
-    netFile = input('Provide network file: ')
+#     netFile = input('Provide network file: ')
 
 
 def tapb_write(cgap, maxiter, maxrtime, batches, trips, netFile):
@@ -104,7 +105,7 @@ with open('./flows.txt', 'r') as f:
     # i = 0
     #for i in range(2):
     for line in f:
-        #print(line.strip(), type(line))
+        #print(line.strip(), type(line))  
         list = line.split()
         tstt += float(list[1]) * float(list[2])
             # print(list)
@@ -113,20 +114,6 @@ with open('./flows.txt', 'r') as f:
             #     break
 print('TSTT is:', tstt)
 
-
-# with open('params_txt', 'w') as f:
-#     call('./bin/tap/params_txt')
-# def uesolver():
-#     location = 'tap-b/bin/tap net/'
-#     start = time.time()
-#     tapb_write(cgap, maxiter, maxrtime, batches, tripFile, netFile)
-#     #args = shlex.split(location + 'params.txt')
-
-#     elapsed = time.time() - start
-
-#     return elapsed
-
-# print(uesolver(), tapb_write )
 
 
         
