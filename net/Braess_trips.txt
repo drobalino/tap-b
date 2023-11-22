@@ -1,7 +1,7 @@
 <NUMBER OF ZONES> 4
 <TOTAL OD FLOW> 6
 <END OF METADATA>
-
+<TOLL FACTOR> 2
 
 Origin 	1 
     4 :  6;

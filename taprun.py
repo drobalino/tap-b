@@ -12,12 +12,12 @@ class Networks:
     def __init__(self, netFile, tripFile):
         self.netFile = netFile
         self.tripFile = tripFile
-cgap = '1e-13'
+cgap = '1e-6'
 maxiter = '100'
 maxrtime = '60'
-batches = '2'
-trips = ['Braess_trips.txt','Braess_trips1.txt']
-netFile = 'Braess_net.txt'
+batches = '1'
+trips = ['No_TransferSiouxFalls_trips.txt']
+netFile = 'No_TransferSiouxFalls_net.txt'
 termcrit = 1
 
 # print('Braess network is default, is this ok?', '\n', 'y or n')
@@ -97,22 +97,30 @@ def tapb_write(cgap, maxiter, maxrtime, batches, trips, netFile):
 tapb_write(cgap, maxiter, maxrtime, batches, trips, netFile)
 
 #filepath = './bin/tap net/params.txt'
-
+st = time.time()
 subprocess.call('./bin/tap net/params.txt', shell = True)
 tstt = 0
 
 with open('./flows.txt', 'r') as f:
-    # i = 0
-    #for i in range(2):
+    i = 0
+#for i in range(2):
     for line in f:
         #print(line.strip(), type(line))  
         list = line.split()
         tstt += float(list[1]) * float(list[2])
+        # print(list[0][1])
+        # print(type(list[0]), list)
+        # if i <= 2:
+        #     print(tstt)
+        # i += 1
+
             # print(list)
             # i += 1
             # if i == 2:
-            #     break
-print('TSTT is:', tstt)
+        #     break
+et = time.time()
+elapsed = et - st
+print('TSTT is:', tstt, 'Elapsed time is:', elapsed)
 
 
 
