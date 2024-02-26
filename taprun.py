@@ -5,40 +5,22 @@ import subprocess
 import shutil
 import os
 import linecache
-from subprocess import call
+from subprocess import *
+from change import *
 
-
-class Networks:
-    def __init__(self, netFile, tripFile):
-        self.netFile = netFile
-        self.tripFile = tripFile
+# class Networks:
+#     def __init__(self, netFile, tripFile):
+#         self.netFile = netFile
+#         self.tripFile = tripFile
 cgap = '1e-6'
 maxiter = '100'
 maxrtime = '60'
-batches = '1'
-trips = ['No_TransferSiouxFalls_trips.txt']
-netFile = 'No_TransferSiouxFalls_net.txt'
+batches = '2'
+trips = ['test_trips1.txt', 'test_trips2.txt']
+netFile = 'test_net.txt'
 termcrit = 1
 
-# print('Braess network is default, is this ok?', '\n', 'y or n')
-# newFile = input()
-# if newFile == 'n':
-#     cgap = input('Provide convergence gap: ')
-#     maxiter = input('Provide maximum number of iterations: ')
-#     maxrtime = input('Provide maximum run time: ')
-#     batches = input('Provide number of batches: ')
-#     print('Select termination criteria:','\n', '1 = Convergence Gap','\n', '2 = Maximum Number of Iterations','\n', '3 = Maximum Runtime')
-#     trips = []
-#     termcrit = int(input())
-#     if int(batches) > 1:
-#         while len(trips) < int(batches):
-#             file = input('Provide trip file: ')
-#             trips.append(file)
-#     else:
-#         file = input('Provide trip file: ')
-#         trips.append(file)
-
-#     netFile = input('Provide network file: ')
+print(netFile)
 
 
 def tapb_write(cgap, maxiter, maxrtime, batches, trips, netFile):
@@ -97,33 +79,58 @@ def tapb_write(cgap, maxiter, maxrtime, batches, trips, netFile):
 tapb_write(cgap, maxiter, maxrtime, batches, trips, netFile)
 
 #filepath = './bin/tap net/params.txt'
+# foundDelta = False
+
+# while foundDelta == False:
 st = time.time()
 subprocess.call('./bin/tap net/params.txt', shell = True)
 tstt = 0
+totalCost = 0   
+linkCost = 0
+tolled = False
+
 
 with open('./flows.txt', 'r') as f:
-    i = 0
-#for i in range(2):
+    # i = 0
+    tolledLinks = 0
     for line in f:
+        link = ''
         #print(line.strip(), type(line))  
-        list = line.split()
-        tstt += float(list[1]) * float(list[2])
-        # print(list[0][1])
-        # print(type(list[0]), list)
-        # if i <= 2:
-        #     print(tstt)
+        data = line.split()
+        tstt += float(data[1]) * float(data[2])
+        for n in range(1, len(data[0]) - 1):
+            link = link + data[0][n]
+        link = link.split(',')
+        link = list(map(int, link))
+        common = set(link) & set(nodes)
+        if link[1] in nodes and link[0] not in nodes:
+            tolled = True
+        # tolled = all(val in nodes for val in link)
+        # print(link,tolled, link[1])
+        if tolled:
+            linkCost = float(data[1]) * (float(data[2]) + float(tfvalue) * float(toll))
+            totalCost += float(data[1]) * (float(data[2]) + float(tfvalue) * float(toll))
+            tolledLinks += 1
+            # print(linkCost)
+        else:
+            linkCost = float(data[1]) * float(data[2])
+            totalCost += float(data[1]) * float(data[2])
+            # print(linkCost)
+        tolled = False
+        # print(data[0][1], data[0], len(data[0]))
+        # print(type(data[0]))
+        # print(type(data[0]), data)
         # i += 1
-
-            # print(list)
-            # i += 1
-            # if i == 2:
+        # if i == 32:
         #     break
 et = time.time()
+tollCost = totalCost - tstt
 elapsed = et - st
-print('TSTT is:', tstt, 'Elapsed time is:', elapsed)
+print(tolledLinks)
+print('Elapsed time is:', elapsed)
+print('TSTT (time):', tstt)
+# print('TSTT (cost):', totalCost)
+# print('Cost due to tolls is:', tollCost)
 
-
-
-        
-        
-
+#resetting net file
+shutil.copyfile('/workspaces/tap-b/net/SiouxFalls_net.txt', '/workspaces/tap-b/net/test_net.txt')

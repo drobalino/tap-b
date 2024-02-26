@@ -1,7 +1,8 @@
-<NETWORK FILE> No_TransferSiouxFalls_net.txt
-<TRIPS FILE> No_TransferSiouxFalls_trips.txt
+<NETWORK FILE> test_net.txt
+<TRIPS FILE> test_trips1.txt
+<TRIPS FILE> test_trips2.txt
 
-<NUMBER OF BATCHES> 1
+<NUMBER OF BATCHES> 2
 <CONVERGENCE GAP> 1e-6
 ~<MAX ITERATIONS> 100
 ~<MAX RUN TIME> 60
