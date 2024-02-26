@@ -16,8 +16,8 @@ cgap = '1e-6'
 maxiter = '100'
 maxrtime = '60'
 batches = '2'
-trips = ['test_trips1.txt', 'test_trips2.txt']
-netFile = 'test_net.txt'
+trips = ['SiouxFalls_class1.txt', 'SiouxFalls_class2.txt']
+netFile = 'SiouxFalls_net.txt'
 termcrit = 1
 
 print(netFile)

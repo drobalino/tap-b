@@ -1,6 +1,6 @@
-<NETWORK FILE> test_net.txt
-<TRIPS FILE> test_trips1.txt
-<TRIPS FILE> test_trips2.txt
+<NETWORK FILE> SiouxFalls_net.txt
+<TRIPS FILE> SiouxFalls_class1.txt
+<TRIPS FILE> SiouxFalls_class2.txt
 
 <NUMBER OF BATCHES> 2
 <CONVERGENCE GAP> 1e-6
